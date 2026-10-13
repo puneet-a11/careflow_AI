@@ -21,3 +21,6 @@ secrets.*
 credentials.*
 *.pem
 *.key
+
+# Markdown documentation
+*.md
