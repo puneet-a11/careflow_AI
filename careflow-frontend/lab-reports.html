@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+<script>(function(){try{var t=JSON.parse(localStorage.getItem("careflow_theme"));if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CareFlow AI - Lab Reports</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="tables.css">
+    <link rel="stylesheet" href="responsive.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* =====================================================
+           LAB MODALS
+        ===================================================== */
+
+        .lab-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.65);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .lab-modal-overlay.active {
+            display: flex;
+        }
+
+        .lab-modal {
+            width: 100%;
+            max-width: 720px;
+            max-height: 92vh;
+            overflow-y: auto;
+            background: var(--surface-bg, #fff);
+            color: var(--color-gray-900, #111827);
+            border-radius: 16px;
+            box-shadow: var(--surface-shadow-xl, 0 25px 70px rgba(0, 0, 0, .25));
+        }
+
+        .lab-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .lab-modal-header h2 {
+            margin: 0;
+            font-size: 20px;
+            color: inherit;
+        }
+
+        .lab-modal-close {
+            border: 0;
+            background: transparent;
+            color: inherit;
+            font-size: 22px;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+        }
+
+        .lab-modal-close:hover {
+            background: var(--color-gray-100, #f3f4f6);
+        }
+
+        .lab-modal-body {
+            padding: 24px;
+        }
+
+        .lab-modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 18px 24px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        /* =====================================================
+           ORDER FORM
+        ===================================================== */
+
+        .lab-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .lab-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .lab-form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .lab-form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .lab-form-group input,
+        .lab-form-group select,
+        .lab-form-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 11px 12px;
+            font-size: 14px;
+            outline: none;
+            background: #fff;
+        }
+
+        .lab-form-group input:focus,
+        .lab-form-group select:focus,
+        .lab-form-group textarea:focus {
+            border-color: #4f46e5;
+        }
+
+        .lab-form-group textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        /* =====================================================
+           REPORT
+        ===================================================== */
+
+        .lab-report {
+            background: #fff;
+            color: #111827;
+            font-family: Arial, Helvetica, sans-serif;
+            border: 1px solid #d1d5db;
+        }
+
+        .lab-report-header {
+            padding: 24px;
+            border-bottom: 3px solid #111827;
+        }
+
+        .lab-report-brand {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .lab-report-brand h1 {
+            margin: 0 0 5px;
+            font-size: 25px;
+            letter-spacing: .5px;
+        }
+
+        .lab-report-brand p {
+            margin: 3px 0;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .lab-report-id {
+            text-align: right;
+            font-size: 12px;
+            color: #475569;
+        }
+
+        .lab-report-section {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .lab-report-section-title {
+            margin: 0 0 14px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .lab-patient-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .lab-patient-item small {
+            display: block;
+            color: #64748b;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .lab-patient-item strong {
+            font-size: 13px;
+        }
+
+        .lab-result-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .lab-result-table-wrap {
+            overflow-x: auto;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+        }
+
+        .lab-result-table th,
+        .lab-result-table td {
+            padding: 10px;
+            text-align: left;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .lab-result-table th + th,
+        .lab-result-table td + td {
+            border-left: 1px solid #d1d5db;
+        }
+
+        .lab-result-table tbody tr + tr td {
+            border-top: 1px solid #d1d5db;
+        }
+
+        .lab-result-table th {
+            background: #f8fafc;
+            font-weight: 700;
+        }
+
+        .lab-result-normal {
+            font-weight: 600;
+        }
+
+        .lab-result-abnormal {
+            font-weight: 700;
+        }
+
+        .lab-report-footer {
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        .lab-signature {
+            text-align: right;
+        }
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
+        .lab-pending {
+            color: #b45309;
+            font-weight: 600;
+        }
+
+        .lab-completed {
+            color: #15803d;
+            font-weight: 600;
+        }
+
+        .lab-action-disabled {
+            opacity: .4;
+            cursor: not-allowed !important;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 650px) {
+
+            .lab-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lab-form-group.full {
+                grid-column: auto;
+            }
+
+            .lab-patient-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .lab-report-brand {
+                flex-direction: column;
+            }
+
+            .lab-report-id {
+                text-align: left;
+            }
+
+            .lab-modal-overlay {
+                padding: 12px;
+            }
+
+            .lab-modal-header,
+            .lab-modal-body,
+            .lab-modal-footer {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .lab-modal-footer {
+                flex-wrap: wrap;
+            }
+
+            .lab-modal-footer .btn {
+                flex: 1 1 130px;
+            }
+        }
+
+        /* =====================================================
+           PRINT
+        ===================================================== */
+
+        @media print {
+
+            body * {
+                visibility: hidden !important;
+            }
+
+            #printArea,
+            #printArea * {
+                visibility: visible !important;
+            }
+
+            #printArea {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+
+            .lab-report {
+                border: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-brand">
+            <div class="sidebar-brand-icon">
+                <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+
+            <div class="sidebar-brand-text">
+                Care<span>Flow</span> AI
+            </div>
+        </div>
+
+            <nav class="sidebar-nav">
+      <div class="sidebar-nav-section">
+        <a href="index.html" class="sidebar-nav-item"><i class="fa-solid fa-grid-2"></i><span class="nav-text">Dashboard</span></a>
+      </div>
+      <div class="sidebar-nav-label">Patient Care</div>
+      <div class="sidebar-nav-section">
+        <a href="patients.html" class="sidebar-nav-item"><i class="fa-solid fa-user-injured"></i><span class="nav-text">Patients</span><span class="nav-badge" id="patientCountBadge"></span></a>
+        <a href="appointments.html" class="sidebar-nav-item"><i class="fa-solid fa-calendar-check"></i><span class="nav-text">Appointments</span></a>
+        <a href="doctors.html" class="sidebar-nav-item"><i class="fa-solid fa-user-doctor"></i><span class="nav-text">Doctors</span></a>
+        <a href="departments.html" class="sidebar-nav-item"><i class="fa-solid fa-hospital"></i><span class="nav-text">Departments</span></a>
+      </div>
+      <div class="sidebar-nav-label">Clinical Operations</div>
+      <div class="sidebar-nav-section">
+        <a href="opd.html" class="sidebar-nav-item"><i class="fa-solid fa-stethoscope"></i><span class="nav-text">OPD Queue</span></a>
+        <a href="ipd.html" class="sidebar-nav-item"><i class="fa-solid fa-bed-pulse"></i><span class="nav-text">IPD / Admissions</span></a>
+      </div>
+      <div class="sidebar-nav-label">Laboratory</div>
+      <div class="sidebar-nav-section">
+        <a href="lab-orders.html" class="sidebar-nav-item"><i class="fa-solid fa-vial-circle-check"></i><span class="nav-text">Lab Orders</span></a>
+        <a href="lab-reports.html" class="sidebar-nav-item active"><i class="fa-solid fa-flask"></i><span class="nav-text">Lab Reports</span></a>
+      </div>
+      <div class="sidebar-nav-label">Medical</div>
+      <div class="sidebar-nav-section">
+        <a href="prescriptions.html" class="sidebar-nav-item"><i class="fa-solid fa-file-prescription"></i><span class="nav-text">Prescriptions</span></a>
+        <a href="pharmacy.html" class="sidebar-nav-item"><i class="fa-solid fa-pills"></i><span class="nav-text">Pharmacy</span></a>
+      </div>
+      <div class="sidebar-nav-label">Finance</div>
+      <div class="sidebar-nav-section">
+        <a href="billing.html" class="sidebar-nav-item"><i class="fa-solid fa-file-invoice-dollar"></i><span class="nav-text">Billing</span></a>
+      </div>
+      <div class="sidebar-nav-label">Tools</div>
+      <div class="sidebar-nav-section">
+        <a href="ai-assistant.html" class="sidebar-nav-item"><i class="fa-solid fa-robot"></i><span class="nav-text">AI Assistant</span></a>
+        <a href="settings.html" class="sidebar-nav-item"><i class="fa-solid fa-gear"></i><span class="nav-text">Settings</span></a>
+        <a href="#" id="logoutBtn" class="sidebar-nav-item"><i class="fa-solid fa-right-from-bracket"></i><span class="nav-text">Logout</span></a>
+      </div>
+    </nav>
+
+        <div class="sidebar-footer">
+
+            <div class="sidebar-footer-user">
+
+                <div class="sidebar-footer-avatar">
+                    DR
+                </div>
+
+                <div class="sidebar-footer-info">
+
+                    <div class="sidebar-footer-name" id="sidebarUserName">
+                        Dr. Rachel Green
+                    </div>
+
+                    <div class="sidebar-footer-role" id="sidebarUserRole">
+                        Senior Physician
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button class="sidebar-toggle" id="sidebarToggle">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="top-header">
+
+            <div class="header-left">
+
+                <button class="header-icon-btn"
+                        id="mobileMenuBtn"
+                        style="display:none;">
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+                <div class="header-breadcrumb">
+
+                    <a href="index.html">Home</a>
+
+                    <span class="separator">/</span>
+
+                    <span class="current">
+                        Lab Reports
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="header-right">
+
+                <div class="header-search">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="text"
+                        id="labSearch"
+                        placeholder="Search lab reports...">
+
+                </div>
+
+                <button class="header-icon-btn">
+                    <i class="fa-solid fa-bell"></i>
+                </button>
+
+                <button class="theme-toggle"
+                        id="themeToggle">
+
+                    <i class="fa-solid fa-moon"></i>
+
+                </button>
+
+                <div class="header-user">
+
+                    <div class="header-user-avatar">
+                        DR
+                    </div>
+
+                    <div class="header-user-info">
+
+                        <div class="header-user-name" id="headerUserName">
+                            Dr. Rachel Green
+                        </div>
+
+                        <div class="header-user-role" id="headerUserRole">
+                            Senior Physician
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <div class="page-content">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1 class="page-title">
+                        Lab Reports
+                    </h1>
+
+                    <p class="page-subtitle">
+                        View and manage laboratory test orders and reports
+                    </p>
+
+                </div>
+
+                <div class="page-actions">
+
+                    <button
+                        class="btn btn-outline-primary"
+                        id="exportLabReportsBtn">
+
+                        <i class="fa-solid fa-download"></i>
+                        Export
+
+                    </button>
+
+                    <button
+                        class="btn btn-outline-primary"
+                        id="printAllBtn">
+
+                        <i class="fa-solid fa-print"></i>
+                        Print All
+
+                    </button>
+
+                    <button
+                        class="btn btn-primary"
+                        id="newLabOrderBtn">
+
+                        <i class="fa-solid fa-plus"></i>
+                        New Lab Order
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="table-container">
+
+                    <table class="data-table">
+
+                        <thead>
+
+                        <tr>
+
+                            <th>Patient</th>
+                            <th>Test Name</th>
+                            <th>Order Date</th>
+                            <th>Doctor</th>
+                            <th>Status</th>
+                            <th>Document Status</th>
+                            <th>Actions</th>
+
+                        </tr>
+
+                        </thead>
+
+                        <tbody id="labTableBody"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     NEW LAB ORDER
+===================================================== -->
+
+<div class="lab-modal-overlay"
+     id="newLabModal">
+
+    <div class="lab-modal">
+
+        <div class="lab-modal-header">
+
+            <h2>
+                New Lab Order
+            </h2>
+
+            <button
+                class="lab-modal-close"
+                id="closeNewLabModal">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="lab-modal-body">
+
+            <div class="lab-form-grid">
+
+                <div class="lab-form-group">
+
+                    <label>
+                        Patient *
+                    </label>
+
+                    <select id="labPatient">
+                        <option value="">
+                            Select patient...
+                        </option>
+                    </select>
+
+                </div>
+
+
+                <div class="lab-form-group">
+
+                    <label>
+                        Doctor *
+                    </label>
+
+                    <select id="labDoctor">
+                        <option value="">
+                            Select doctor...
+                        </option>
+                    </select>
+
+                </div>
+
+
+                <div class="lab-form-group">
+
+                    <label>
+                        Test Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="labTest"
+                        placeholder="e.g. Complete Blood Count">
+
+                </div>
+
+
+                <div class="lab-form-group">
+
+                    <label>
+                        Priority
+                    </label>
+
+                    <select id="labPriority">
+
+                        <option value="Routine">
+                            Routine
+                        </option>
+
+                        <option value="Urgent">
+                            Urgent
+                        </option>
+
+                        <option value="STAT">
+                            STAT
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="lab-form-group">
+
+                    <label>
+                        Expected Report Time *
+                    </label>
+
+                    <select id="labExpectedTime">
+
+                        <option value="30 minutes">
+                            30 Minutes
+                        </option>
+
+                        <option value="1 hour">
+                            1 Hour
+                        </option>
+
+                        <option value="2 hours">
+                            2 Hours
+                        </option>
+
+                        <option value="6 hours">
+                            6 Hours
+                        </option>
+
+                        <option value="24 hours">
+                            24 Hours
+                        </option>
+
+                        <option value="48 hours">
+                            48 Hours
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="lab-form-group">
+
+                    <label>
+                        Clinical Notes
+                    </label>
+
+                    <input
+                        type="text"
+                        id="labClinicalNotes"
+                        placeholder="Reason / clinical information">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="lab-modal-footer">
+
+            <button
+                class="btn btn-outline-primary"
+                id="cancelNewLab">
+
+                Cancel
+
+            </button>
+
+            <button
+                class="btn btn-primary"
+                id="saveLabOrder">
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+                Place Lab Order
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     VIEW REPORT
+===================================================== -->
+
+<div class="lab-modal-overlay"
+     id="viewLabModal">
+
+    <div class="lab-modal"
+         style="max-width:900px;">
+
+        <div class="lab-modal-header">
+
+            <h2>
+                Laboratory Report
+            </h2>
+
+            <button
+                class="lab-modal-close"
+                id="closeViewLabModal">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <div class="lab-modal-body">
+
+            <div id="labViewContent"></div>
+
+        </div>
+
+        <div class="lab-modal-footer">
+
+            <button
+                class="btn btn-outline-primary"
+                id="downloadReportBtn">
+
+                <i class="fa-solid fa-download"></i>
+                Download
+
+            </button>
+
+            <button
+                class="btn btn-outline-primary"
+                id="viewPrintBtn">
+
+                <i class="fa-solid fa-print"></i>
+                Print
+
+            </button>
+
+            <button
+                class="btn btn-primary"
+                id="closeViewBtn">
+
+                Close
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     EDIT LAB REPORT MODAL
+     Reuses the same .lab-modal styling as the New Lab Order
+     modal. Only fields that exist on LabReportUpdate in
+     careflow-backend/app/schemas.py are editable here.
+     The attached document is NOT touched by this form - it is
+     managed separately from the report view, so saving an edit
+     never drops an uploaded file.
+===================================================== -->
+
+<div class="lab-modal-overlay" id="editLabModal">
+
+    <div class="lab-modal">
+
+        <div class="lab-modal-header">
+
+            <h2>
+                <i class="fa-solid fa-pen-to-square"></i>
+                Edit Lab Report
+            </h2>
+
+            <button class="lab-modal-close" id="closeEditLabModal" type="button" aria-label="Close edit lab report">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <div class="lab-modal-body">
+
+            <div class="lab-form-grid">
+
+                <div class="lab-form-group">
+                    <label>Patient</label>
+                    <select id="editLabPatient"></select>
+                </div>
+
+                <div class="lab-form-group">
+                    <label>Referring Doctor</label>
+                    <select id="editLabDoctor"></select>
+                </div>
+
+                <div class="lab-form-group">
+                    <label>Test Name</label>
+                    <input type="text" id="editLabTest" placeholder="e.g. Complete Blood Count">
+                </div>
+
+                <div class="lab-form-group">
+                    <label>Report Date</label>
+                    <input type="date" id="editLabDate">
+                </div>
+
+                <div class="lab-form-group">
+                    <label>Result</label>
+                    <input type="text" id="editLabResult" placeholder="e.g. 13.4 g/dL">
+                </div>
+
+                <div class="lab-form-group">
+                    <label>Reference / Normal Range</label>
+                    <input type="text" id="editLabNormalRange" placeholder="e.g. 12.0 - 16.0 g/dL">
+                </div>
+
+                <div class="lab-form-group">
+                    <label>Status</label>
+                    <select id="editLabStatus">
+                        <option value="Normal">Normal</option>
+                        <option value="Abnormal">Abnormal</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <p class="text-muted" style="margin-top: var(--space-3); font-size: var(--font-size-xs);">
+                Every change is recorded in the server-side audit log.
+                The attached document is managed from the report view and
+                is not affected by saving this form.
+            </p>
+
+        </div>
+
+        <div class="lab-modal-footer">
+
+            <button class="btn btn-outline-primary" id="cancelEditLab">
+                Cancel
+            </button>
+
+            <button class="btn btn-primary" id="saveEditLab">
+                <i class="fa-solid fa-check"></i>
+                <span id="saveEditLabLabel">Save Changes</span>
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div id="printArea"></div>
+
+
+<script src="server-config.js"></script>
+<script src="storage.js"></script>
+<script src="api.js"></script>
+<script src="auth.js"></script>
+<script src="permissions.js"></script>
+<script src="mock-data.js"></script>
+<script src="app.js"></script>
+<script src="lab-reports.js"></script>
+
+</body>
+</html>

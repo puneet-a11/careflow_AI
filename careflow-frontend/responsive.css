@@ -1,0 +1,202 @@
+/* ============================================
+   CAREFLOW AI - RESPONSIVE STYLESHEET
+   Consolidated responsive adjustments
+   ============================================ */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+  .patient-detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .patient-detail-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .vital-signs-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .dashboard-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .welcome-banner {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .table-filter-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .patient-info-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile (480px - 768px) */
+@media (max-width: 768px) {
+  .page-content {
+    padding: 1rem;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .page-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .page-actions .btn {
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .vital-signs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .patient-card-body {
+    grid-template-columns: 1fr;
+  }
+
+  .modal {
+    width: 95%;
+    max-height: 90vh;
+    border-radius: var(--radius-xl);
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .form-row,
+  .form-row-2,
+  .form-row-3,
+  .form-row-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .mini-stat-row {
+    flex-direction: column;
+  }
+
+  .ai-chat-panel {
+    width: calc(100vw - 32px);
+    max-height: 480px;
+  }
+
+  .triage-score-display {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .patient-detail-avatar {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+}
+
+/* Small Mobile (320px - 480px) */
+@media (max-width: 480px) {
+  .vital-signs-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .dashboard-grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .stat-card-value {
+    font-size: 1.5rem;
+  }
+
+  .ai-chat-panel {
+    width: calc(100vw - 16px);
+    max-height: 400px;
+    border-radius: var(--radius-lg);
+  }
+
+  .ai-chat-widget {
+    bottom: 12px;
+    right: 12px;
+  }
+
+  .ai-chat-fab {
+    width: 48px;
+    height: 48px;
+    font-size: 1.25rem;
+  }
+
+  .header-search {
+    display: none;
+  }
+
+  .header-breadcrumb {
+    display: none;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .card-header .search-bar {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .sidebar,
+  .top-header,
+  .ai-chat-widget,
+  .sidebar-toggle,
+  .sidebar-overlay {
+    display: none !important;
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+  }
+
+  .page-content {
+    padding: 0 !important;
+  }
+
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    page-break-inside: avoid;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+}

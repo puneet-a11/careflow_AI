@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<script>(function(){try{var t=JSON.parse(localStorage.getItem("careflow_theme"));if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareFlow AI - Departments</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="components.css">
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+<div class="app-layout">
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div class="sidebar-brand-text">Care<span>Flow</span> AI</div>
+    </div>
+            <nav class="sidebar-nav">
+      <div class="sidebar-nav-section">
+        <a href="index.html" class="sidebar-nav-item"><i class="fa-solid fa-grid-2"></i><span class="nav-text">Dashboard</span></a>
+      </div>
+      <div class="sidebar-nav-label">Patient Care</div>
+      <div class="sidebar-nav-section">
+        <a href="patients.html" class="sidebar-nav-item"><i class="fa-solid fa-user-injured"></i><span class="nav-text">Patients</span><span class="nav-badge" id="patientCountBadge"></span></a>
+        <a href="appointments.html" class="sidebar-nav-item"><i class="fa-solid fa-calendar-check"></i><span class="nav-text">Appointments</span></a>
+        <a href="doctors.html" class="sidebar-nav-item"><i class="fa-solid fa-user-doctor"></i><span class="nav-text">Doctors</span></a>
+        <a href="departments.html" class="sidebar-nav-item active"><i class="fa-solid fa-hospital"></i><span class="nav-text">Departments</span></a>
+      </div>
+      <div class="sidebar-nav-label">Clinical Operations</div>
+      <div class="sidebar-nav-section">
+        <a href="opd.html" class="sidebar-nav-item"><i class="fa-solid fa-stethoscope"></i><span class="nav-text">OPD Queue</span></a>
+        <a href="ipd.html" class="sidebar-nav-item"><i class="fa-solid fa-bed-pulse"></i><span class="nav-text">IPD / Admissions</span></a>
+      </div>
+      <div class="sidebar-nav-label">Laboratory</div>
+      <div class="sidebar-nav-section">
+        <a href="lab-orders.html" class="sidebar-nav-item"><i class="fa-solid fa-vial-circle-check"></i><span class="nav-text">Lab Orders</span></a>
+        <a href="lab-reports.html" class="sidebar-nav-item"><i class="fa-solid fa-flask"></i><span class="nav-text">Lab Reports</span></a>
+      </div>
+      <div class="sidebar-nav-label">Medical</div>
+      <div class="sidebar-nav-section">
+        <a href="prescriptions.html" class="sidebar-nav-item"><i class="fa-solid fa-file-prescription"></i><span class="nav-text">Prescriptions</span></a>
+        <a href="pharmacy.html" class="sidebar-nav-item"><i class="fa-solid fa-pills"></i><span class="nav-text">Pharmacy</span></a>
+      </div>
+      <div class="sidebar-nav-label">Finance</div>
+      <div class="sidebar-nav-section">
+        <a href="billing.html" class="sidebar-nav-item"><i class="fa-solid fa-file-invoice-dollar"></i><span class="nav-text">Billing</span></a>
+      </div>
+      <div class="sidebar-nav-label">Tools</div>
+      <div class="sidebar-nav-section">
+        <a href="ai-assistant.html" class="sidebar-nav-item"><i class="fa-solid fa-robot"></i><span class="nav-text">AI Assistant</span></a>
+        <a href="settings.html" class="sidebar-nav-item"><i class="fa-solid fa-gear"></i><span class="nav-text">Settings</span></a>
+        <a href="#" id="logoutBtn" class="sidebar-nav-item"><i class="fa-solid fa-right-from-bracket"></i><span class="nav-text">Logout</span></a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-footer-user">
+        <div class="sidebar-footer-avatar">DR</div>
+        <div class="sidebar-footer-info">
+          <div class="sidebar-footer-name" id="sidebarUserName">Dr. Rachel Green</div>
+          <div class="sidebar-footer-role" id="sidebarUserRole">Senior Physician</div>
+        </div>
+      </div>
+    </div>
+    <button class="sidebar-toggle" id="sidebarToggle"><i class="fa-solid fa-chevron-left"></i></button>
+  </aside>
+
+  <main class="main-content">
+    <header class="top-header">
+      <div class="header-left">
+        <button class="header-icon-btn" id="mobileMenuBtn" style="display:none;"><i class="fa-solid fa-bars"></i></button>
+        <div class="header-breadcrumb"><a href="index.html">Home</a><span class="separator">/</span><span class="current">Departments</span></div>
+      </div>
+      <div class="header-right">
+        <div class="header-search"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="globalSearchInput" placeholder="Search departments..."><kbd class="header-search-kbd">Ctrl K</kbd><div class="global-search-results hidden" id="globalSearchResults"></div></div>
+        <button class="header-icon-btn"><i class="fa-solid fa-bell"></i></button>
+        <button class="theme-toggle" id="themeToggle"><i class="fa-solid fa-moon"></i></button>
+        <div class="header-user"><div class="header-user-avatar">DR</div><div class="header-user-info"><div class="header-user-name" id="headerUserName">Dr. Rachel Green</div><div class="header-user-role" id="headerUserRole">Senior Physician</div></div></div>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Departments</h1>
+          <p class="page-subtitle">Hospital departments overview</p>
+        </div>
+        <div class="page-actions">
+            <button class="btn btn-outline-primary" id="exportDepartmentsBtn">
+    <i class="fa-solid fa-download"></i>
+    Export
+</button>
+            <button class="btn btn-primary" id="addDepartmentBtn">
+    <i class="fa-solid fa-plus"></i>
+    Add Department
+</button>
+        </div>
+      </div>
+
+      <div class="dashboard-grid" id="departmentGrid"></div>
+    </div>
+  </main>
+</div>
+<!-- ADD / EDIT DEPARTMENT MODAL -->
+<div class="modal-backdrop" id="departmentModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+            <h3 class="modal-title" id="departmentModalTitle">
+                Add Department
+            </h3>
+
+            <button class="modal-close" id="departmentModalClose">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="form-row-2">
+
+                <div class="form-group">
+                    <label class="form-label">Department Name</label>
+                    <input type="text" class="form-input" id="departmentName" placeholder="Cardiology">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Icon (Font Awesome class)</label>
+                    <input type="text" class="form-input" id="departmentIcon" placeholder="fa-heart-pulse">
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <input type="text" class="form-input" id="departmentDescription" placeholder="Heart and vascular system care">
+            </div>
+
+            <div class="form-row-2">
+
+                <div class="form-group">
+                    <label class="form-label">Doctors</label>
+                    <input type="number" class="form-input" id="departmentDoctors" min="0" value="0">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Beds</label>
+                    <input type="number" class="form-input" id="departmentBeds" min="0" value="0">
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Patients</label>
+                <input type="number" class="form-input" id="departmentPatients" min="0" value="0">
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-secondary" id="departmentModalCancel">Cancel</button>
+            <button class="btn btn-primary" id="departmentModalSave">
+                <i class="fa-solid fa-check"></i>
+                Save Department
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="server-config.js"></script>
+<script src="storage.js"></script>
+<script src="api.js"></script>
+<script src="auth.js"></script>
+<script src="permissions.js"></script>
+<script src="mock-data.js"></script>
+<script src="app.js"></script>
+<script src="departments.js"></script>
+</body>
+</html>

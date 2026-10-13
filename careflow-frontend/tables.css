@@ -1,0 +1,172 @@
+/* ============================================
+   CAREFLOW AI - TABLES STYLESHEET
+   Table Actions, Filter Row, Status Badges, Compact Tables
+   ============================================ */
+
+/* Table Actions Column */
+.table-actions {
+  display: flex;
+  gap: 0.35rem;
+  justify-content: flex-end;
+}
+
+.table-actions .btn {
+  padding: 0.3rem 0.5rem;
+  min-height: auto;
+}
+
+/* Table Filter Row */
+.table-filter-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-gray-50);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--surface-border);
+}
+
+.table-filter-row .search-bar {
+  max-width: 300px;
+}
+
+.table-filter-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.table-filter-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+[data-theme="dark"] .table-filter-row {
+  background: var(--color-gray-800);
+}
+
+/* Table Status Badge in cell */
+.table-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-weight: 500;
+}
+
+/* Small table avatar */
+.table-avatar-sm {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* Table Row Clickable */
+.data-table tbody tr.clickable {
+  cursor: pointer;
+}
+
+.data-table tbody tr.clickable:hover {
+  background: var(--color-primary-50);
+}
+
+[data-theme="dark"] .data-table tbody tr.clickable:hover {
+  background: rgba(99,102,241,0.08);
+}
+
+/* Compact Table */
+.data-table.compact thead th {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.65rem;
+}
+
+.data-table.compact tbody td {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+}
+
+/* Table Highlight Row */
+.data-table tbody tr.highlight {
+  background: #fffbeb;
+  border-left: 3px solid var(--color-warning);
+}
+
+[data-theme="dark"] .data-table tbody tr.highlight {
+  background: rgba(245,158,11,0.08);
+}
+
+/* Table Info Row */
+.table-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  font-size: 0.8rem;
+  color: var(--color-gray-500);
+  background: var(--color-gray-50);
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.table-info-row strong {
+  color: var(--color-gray-700);
+}
+
+[data-theme="dark"] .table-info-row {
+  background: var(--color-gray-800);
+  color: var(--color-gray-400);
+}
+
+[data-theme="dark"] .table-info-row strong {
+  color: var(--color-gray-300);
+}
+
+/* Table Responsive Wrapper */
+@media (max-width: 768px) {
+  .table-filter-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .table-filter-left,
+  .table-filter-right {
+    width: 100%;
+  }
+  .table-filter-row .search-bar {
+    max-width: 100%;
+  }
+  .table-actions {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+
+/* Row opened via a deep link (e.g. dashboard eye button -> appointments.html?id=A005) */
+.data-table tr.row-highlight td {
+  background: rgba(79, 70, 229, 0.14) !important;
+  transition: background 0.4s ease;
+}
+.data-table tr.row-highlight td:first-child {
+  box-shadow: inset 4px 0 0 var(--color-primary);
+}
+
+/* "No upcoming appointments" style empty cell */
+.dash-empty-cell {
+  text-align: center;
+  padding: 2rem 1rem !important;
+  color: var(--color-gray-500);
+}
+.dash-appt-row { cursor: pointer; }
+
+.activity-empty { list-style: none; padding: 1.25rem 0; color: var(--color-gray-500); text-align: center; }

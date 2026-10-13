@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<script>(function(){try{var t=JSON.parse(localStorage.getItem("careflow_theme"));if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareFlow AI - Connect to Server</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="components.css">
+  <link rel="stylesheet" href="forms.css">
+  <link rel="stylesheet" href="responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 40%, #1e1b4b 100%);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    }
+    .setup-container { width: 100%; max-width: 460px; padding: 0 1rem; }
+    .setup-card { background: var(--surface-bg); border-radius: var(--radius-2xl); box-shadow: 0 25px 60px rgba(0,0,0,0.3); overflow: hidden; }
+    .setup-card-header { background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-800)); padding: 2rem 2rem 1.5rem; text-align: center; color: #fff; }
+    .setup-logo { width: 56px; height: 56px; border-radius: 16px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 0.75rem; }
+    .setup-card-header h1 { font-size: 1.35rem; margin: 0 0 0.25rem; }
+    .setup-card-header p { font-size: 0.85rem; opacity: 0.85; margin: 0; }
+    .setup-card-body { padding: 1.75rem 2rem 2rem; }
+    .setup-hint { font-size: 0.8rem; color: var(--text-muted); margin: -0.5rem 0 1.25rem; line-height: 1.5; }
+    .setup-status { display: none; align-items: center; gap: 0.5rem; padding: 0.65rem 0.85rem; border-radius: var(--radius-md); font-size: 0.85rem; margin-bottom: 1rem; }
+    .setup-status.show { display: flex; }
+    .setup-status.ok { background: rgba(16,185,129,0.12); color: #059669; }
+    .setup-status.error { background: rgba(239,68,68,0.12); color: #dc2626; }
+    [data-theme="dark"] .setup-status.ok { color: #34d399; }
+    [data-theme="dark"] .setup-status.error { color: #f87171; }
+  </style>
+</head>
+<body>
+  <div class="setup-container">
+    <div class="setup-card">
+      <div class="setup-card-header">
+        <div class="setup-logo"><i class="fa-solid fa-server"></i></div>
+        <h1>Connect to your hospital's CareFlow server</h1>
+        <p>Enter this once - your device will remember it.</p>
+      </div>
+      <div class="setup-card-body">
+        <p class="setup-hint">
+          Ask your CareFlow administrator for this address. It looks like
+          <strong>https://careflow.yourhospital.com</strong>. This app does
+          not store patient data on the phone itself - everything lives on
+          that server.
+        </p>
+
+        <div class="setup-status" id="setupStatus">
+          <i class="fa-solid" id="setupStatusIcon"></i>
+          <span id="setupStatusMessage"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="serverUrl">Server URL</label>
+          <div class="form-search">
+            <i class="fa-solid fa-link search-icon"></i>
+            <input type="text" class="form-input" id="serverUrl" placeholder="https://careflow.yourhospital.com" autocorrect="off" spellcheck="false" title="CareFlow server URL">
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-outline-primary btn-block setup-test-button" id="testBtn">
+          <i class="fa-solid fa-plug"></i> Test Connection
+        </button>
+        <button type="button" class="btn btn-primary btn-block btn-lg" id="saveBtn" disabled>
+          <i class="fa-solid fa-check"></i> Save and Continue
+        </button>
+
+        <div class="setup-skip-wrap">
+          <a href="login.html" id="skipLink" class="setup-skip-link">Already configured? Back to sign in</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="server-config.js"></script>
+  <script>
+    (function () {
+      var input = document.getElementById('serverUrl');
+      var testBtn = document.getElementById('testBtn');
+      var saveBtn = document.getElementById('saveBtn');
+      var statusEl = document.getElementById('setupStatus');
+      var statusIcon = document.getElementById('setupStatusIcon');
+      var statusMsg = document.getElementById('setupStatusMessage');
+      var lastVerifiedUrl = null;
+
+      var existing = ServerConfig.getApiBase();
+      if (existing) input.value = existing.replace(/\/api$/, '');
+
+      function setStatus(kind, message) {
+        statusEl.className = 'setup-status show ' + kind;
+        statusIcon.className = 'fa-solid ' + (kind === 'ok' ? 'fa-circle-check' : 'fa-circle-exclamation');
+        statusMsg.textContent = message;
+      }
+
+      function resetStatus() {
+        statusEl.className = 'setup-status';
+        saveBtn.disabled = true;
+        lastVerifiedUrl = null;
+      }
+
+      input.addEventListener('input', resetStatus);
+
+      testBtn.addEventListener('click', async function () {
+        var value = input.value.trim();
+        if (!value) { setStatus('error', 'Enter a server URL first.'); return; }
+
+        testBtn.disabled = true;
+        testBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Checking...';
+
+        var result = await ServerConfig.testConnection(value);
+
+        testBtn.disabled = false;
+        testBtn.innerHTML = '<i class="fa-solid fa-plug"></i> Test Connection';
+
+        if (result.ok) {
+          setStatus('ok', 'Connected. Server found at this address.');
+          saveBtn.disabled = false;
+          lastVerifiedUrl = result.url;
+        } else {
+          setStatus('error', result.error || 'Could not connect.');
+        }
+      });
+
+      saveBtn.addEventListener('click', function () {
+        var value = lastVerifiedUrl || input.value.trim();
+        var result = ServerConfig.setApiBase(value);
+        if (!result.ok) {
+          setStatus('error', result.error);
+          return;
+        }
+        window.location.href = 'login.html';
+      });
+
+      // On the web build this screen is optional - if someone lands here
+      // without needing it, don't force them to configure anything.
+      if (!ServerConfig.isNative()) {
+        document.getElementById('skipLink').style.display = 'inline';
+      }
+    })();
+  </script>
+</body>
+</html>

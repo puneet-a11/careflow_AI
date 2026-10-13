@@ -1,0 +1,23 @@
+# CareFlow AI backend runtime: FastAPI + SQLAlchemy (app/main.py).
+#
+# The Django / djangorestframework / django-cors-headers pins that used to
+# sit here were labelled "primary backend runtime", which was wrong and
+# misleading: nothing under app/ imports Django. The only Django code in
+# the repository lives in _legacy_unused/ and is not served. Those three
+# dependencies have been removed so a production install does not pull in
+# an unused web framework. Re-add them only if _legacy_unused/ is ever
+# revived as a real service.
+
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+SQLAlchemy==2.0.35
+# 2.11+ provides prebuilt wheels for current Python versions (including 3.14).
+pydantic>=2.11,<3
+email-validator==2.2.0
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+python-multipart==0.0.9
+python-dotenv==1.0.1
+google-genai>=1.0.0
+PyMySQL==1.1.1

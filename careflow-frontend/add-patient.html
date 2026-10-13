@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<script>(function(){try{var t=JSON.parse(localStorage.getItem("careflow_theme"));if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareFlow AI - Add Patient</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="components.css">
+  <link rel="stylesheet" href="forms.css">
+  <link rel="stylesheet" href="add-patient.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <main class="add-patient-page">
+    <header class="add-patient-header">
+      <a class="brand" href="index.html"><i class="fa-solid fa-heart-pulse"></i> Care<span>Flow</span> AI</a>
+      <div class="header-actions" style="display:flex; align-items:center; gap:0.75rem;">
+        <button class="theme-toggle" id="themeToggle" title="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+        <a class="btn btn-outline-primary" href="patients.html"><i class="fa-solid fa-arrow-left"></i> Back to Patients</a>
+      </div>
+    </header>
+
+    <section class="add-patient-content">
+      <div class="page-heading">
+        <p class="eyebrow"><i class="fa-solid fa-user-plus"></i> New patient record</p>
+        <h1>Add Patient</h1>
+        <p>Enter the patient details below. The record will be saved securely to CareFlow.</p>
+      </div>
+
+      <form id="addPatientForm" class="patient-form" novalidate>
+        <div class="form-card">
+          <h2><i class="fa-solid fa-id-card"></i> Personal information</h2>
+          <div class="form-grid">
+            <label>Full name <span>*</span><input class="form-input" name="name" required placeholder="e.g. Priya Sharma"></label>
+            <label>Medical record number <span>*</span><input class="form-input" name="mrn" required placeholder="e.g. MRN-10100"></label>
+            <label>Age <span>*</span><input class="form-input" name="age" type="number" min="0" max="130" required placeholder="e.g. 34"></label>
+            <label>Gender <span>*</span><select class="form-select" name="gender" required><option value="">Select gender</option><option>Female</option><option>Male</option><option>Other</option></select></label>
+            <label>Blood group <select class="form-select" name="bloodGroup"><option value="">Not known</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></label>
+            <label>Admission date <span>*</span><input class="form-input" name="admissionDate" type="date" required></label>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <h2><i class="fa-solid fa-stethoscope"></i> Clinical details</h2>
+          <div class="form-grid">
+            <label>Assigned doctor <select class="form-select" id="doctor" name="doctor"><option value="">Unassigned</option></select></label>
+            <label>Severity <span>*</span><select class="form-select" name="severity" required><option>Low</option><option selected>Medium</option><option>High</option><option>Critical</option></select></label>
+            <label>Triage score <input class="form-input" name="triageScore" type="number" min="0" max="10" placeholder="0 - 10"></label>
+            <label>Status <span>*</span><select class="form-select" name="status" required><option selected>Waiting</option><option>In Progress</option><option>Checked In</option><option>Triaging</option></select></label>
+            <label class="wide">Symptoms <textarea class="form-textarea" name="symptoms" placeholder="Separate symptoms with commas, e.g. fever, cough"></textarea></label>
+            <label class="wide">Allergies <textarea class="form-textarea" name="allergies" placeholder="Separate allergies with commas, or leave empty if none"></textarea></label>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <h2><i class="fa-solid fa-heart-pulse"></i> Vital signs <small>Optional</small></h2>
+          <div class="form-grid vitals-grid">
+            <label>Blood pressure<input class="form-input" name="bp" placeholder="120/80"></label>
+            <label>Heart rate<input class="form-input" name="hr" type="number" min="0" placeholder="72"></label>
+            <label>Temperature (°F)<input class="form-input" name="temp" type="number" step="0.1" placeholder="98.6"></label>
+            <label>SpO₂ (%)<input class="form-input" name="spo2" type="number" min="0" max="100" placeholder="98"></label>
+            <label>Respiratory rate<input class="form-input" name="rr" type="number" min="0" placeholder="16"></label>
+          </div>
+        </div>
+
+        <p id="formError" class="form-message error" role="alert"></p>
+        <div class="form-actions"><a href="patients.html" class="btn btn-secondary">Cancel</a><button id="savePatientBtn" class="btn btn-primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> Save Patient</button></div>
+      </form>
+    </section>
+  </main>
+  <script src="server-config.js"></script>
+<script src="storage.js"></script>
+  <script src="api.js"></script>
+  <script src="auth.js"></script>
+<script src="permissions.js"></script>
+  <script src="mock-data.js"></script>
+  <script src="app.js"></script>
+  <script src="add-patient.js"></script>
+</body>
+</html>

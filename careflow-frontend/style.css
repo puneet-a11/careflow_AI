@@ -1,0 +1,1502 @@
+/* ============================================
+   CAREFLOW AI - GLOBAL STYLESHEET
+   Design System, Variables, Reset, Typography,
+   Sidebar, Header, Dark Mode
+   ============================================ */
+
+/* --- CSS Custom Properties (Design Tokens) --- */
+:root {
+  /* === Color Palette === */
+  --color-primary: #4f46e5;
+  --color-primary-hover: #4338ca;
+  --color-primary-light: #e0e7ff;
+  --color-primary-dark: #3730a3;
+  --color-primary-50: #eef2ff;
+  --color-primary-100: #e0e7ff;
+  --color-primary-200: #c7d2fe;
+  --color-primary-300: #a5b4fc;
+  --color-primary-400: #818cf8;
+  --color-primary-500: #6366f1;
+  --color-primary-600: #4f46e5;
+  --color-primary-700: #4338ca;
+  --color-primary-800: #3730a3;
+  --color-primary-900: #312e81;
+
+  --color-success: #10b981;
+  --color-success-hover: #059669;
+  --color-success-light: #d1fae5;
+  --color-success-dark: #065f46;
+
+  --color-warning: #f59e0b;
+  --color-warning-hover: #d97706;
+  --color-warning-light: #fef3c7;
+  --color-warning-dark: #92400e;
+
+  --color-danger: #ef4444;
+  --color-danger-hover: #dc2626;
+  --color-danger-light: #fee2e2;
+  --color-danger-dark: #991b1b;
+
+  --color-info: #06b6d4;
+  --color-info-light: #cffafe;
+  --color-info-dark: #155e75;
+
+  /* === Neutrals === */
+  --color-white: #ffffff;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  --color-gray-950: #030712;
+
+  /* === Sidebar === */
+  --sidebar-bg: #0f172a;
+  --sidebar-bg-hover: #1e293b;
+  --sidebar-text: #cbd5e1;
+  --sidebar-text-active: #ffffff;
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 72px;
+  --sidebar-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* === Header === */
+  --header-height: 64px;
+  --header-bg: #ffffff;
+  --header-border: #e5e7eb;
+  --header-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+
+  /* === Body / Surface === */
+  --body-bg: #f1f5f9;
+  --surface-bg: #ffffff;
+  --surface-border: #e2e8f0;
+  --surface-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --surface-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --surface-shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.04);
+  --surface-shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.06);
+
+  /* === Typography === */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.8125rem;
+  --font-size-base: 0.875rem;
+  --font-size-md: 0.9375rem;
+  --font-size-lg: 1.0625rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+
+  /* === Spacing Scale === */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  /* === Border Radius === */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-full: 9999px;
+
+  /* === Transitions === */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* === Z-Index Scale === */
+  --z-sidebar: 100;
+  --z-header: 90;
+  --z-modal-backdrop: 200;
+  --z-modal: 210;
+  --z-dropdown: 150;
+  --z-toast: 300;
+  --z-tooltip: 250;
+
+  /* === Scrollbar === */
+  --scrollbar-width: 6px;
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: #cbd5e1;
+  --scrollbar-thumb-hover: #94a3b8;
+}
+
+/* ============================================
+   DARK MODE
+   ============================================ */
+[data-theme="dark"] {
+  --body-bg: #0f172a;
+  --surface-bg: #1e293b;
+  --surface-border: #334155;
+  --surface-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --surface-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+  --surface-shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.4), 0 4px 10px rgba(0, 0, 0, 0.3);
+  --surface-shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.5), 0 8px 20px rgba(0, 0, 0, 0.3);
+
+  --header-bg: #1e293b;
+  --header-border: #334155;
+  --header-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+  --sidebar-bg: #0b1120;
+  --sidebar-bg-hover: #1a2540;
+  --sidebar-text: #94a3b8;
+  --sidebar-text-active: #ffffff;
+
+  --color-gray-50: #1e293b;
+  --color-gray-100: #1e293b;
+  --color-gray-200: #334155;
+  --color-gray-300: #475569;
+  --color-gray-400: #64748b;
+  --color-gray-500: #94a3b8;
+  --color-gray-600: #cbd5e1;
+  --color-gray-700: #e2e8f0;
+  --color-gray-800: #f1f5f9;
+  --color-gray-900: #f8fafc;
+
+  --scrollbar-thumb: #475569;
+  --scrollbar-thumb-hover: #64748b;
+}
+
+/* ============================================
+   CSS RESET
+   ============================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-gray-900);
+  background-color: var(--body-bg);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color var(--transition-smooth), color var(--transition-smooth);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: inherit;
+  color: inherit;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--color-gray-900);
+}
+
+h1 { font-size: var(--font-size-3xl); }
+h2 { font-size: var(--font-size-2xl); }
+h3 { font-size: var(--font-size-xl); }
+h4 { font-size: var(--font-size-lg); }
+h5 { font-size: var(--font-size-base); }
+h6 { font-size: var(--font-size-sm); }
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+  color: var(--color-gray-900);
+}
+
+/* ============================================
+   CUSTOM SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* ============================================
+   APP LAYOUT - MAIN WRAPPER
+   ============================================ */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  min-height: 100dvh; /* dynamic viewport height - avoids mobile browser chrome (address bar) causing clipped/jumpy layout; vh above is the fallback for browsers without dvh support */
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
+  height: 100dvh; /* see .app-layout note above */
+  width: var(--sidebar-width);
+  background: var(--sidebar-bg);
+  z-index: var(--z-sidebar);
+  display: flex;
+  flex-direction: column;
+  transition: width var(--sidebar-transition), transform var(--sidebar-transition);
+  /* ROOT CAUSE FIX (heading/label clipping):
+     `overflow: hidden` here clipped BOTH axes. Vertically that silently
+     cut off the lower menu items; horizontally it cut labels whenever
+     the flex row was even 1px too wide. The sidebar still must not
+     scroll horizontally (it is a fixed-width rail), so keep x hidden,
+     but let the nav own vertical scrolling (see .sidebar-nav) instead
+     of the sidebar swallowing the overflow. */
+  overflow-x: hidden;
+  overflow-y: hidden;
+  box-sizing: border-box;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.sidebar.collapsed {
+  width: var(--sidebar-collapsed-width);
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  /* the horizontal padding here was --space-5 (20px) on BOTH sides on a
+     260px rail, leaving the brand text 164px - the first thing users
+     saw clipped. --space-4 keeps the same visual rhythm as the nav
+     items below it while giving the text back usable width. */
+  padding: var(--space-5) var(--space-4);
+  overflow: hidden;
+  min-height: var(--header-height);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.sidebar-brand-icon {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.sidebar-brand-text {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: #ffffff;
+  white-space: nowrap;
+  /* min-width:0 lets this flex child actually shrink instead of forcing
+     the brand row wider than the rail (which is what pushed the text
+     under the clipped edge). text-overflow gives a readable ellipsis
+     rather than a hard cut; the markup carries a title tooltip. */
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 1;
+  transition: opacity var(--transition-base);
+}
+
+.sidebar-brand-text span {
+  color: var(--color-primary-400);
+}
+
+.sidebar.collapsed .sidebar-brand-text {
+  opacity: 0;
+  width: 0;
+}
+
+.sidebar-nav {
+  flex: 1;
+  /* THE FIX: a flex item's default min-height is "auto" (its content's
+     natural height), not 0 - so without this, when the nav list is taller
+     than the space left after the brand/footer, it was refusing to shrink
+     and overflowing the sidebar's own fixed height instead of scrolling.
+     Since .sidebar has overflow:hidden, that overflow was invisible -
+     the lower menu items were silently clipped, not just visually cut off.
+     This is the root cause of the "menu items become inaccessible" bug. */
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--space-4) var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.sidebar-nav-section {
+  margin-bottom: var(--space-2);
+}
+
+.sidebar-nav-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  /* SIDEBAR LABEL OVERFLOW FIX
+     Section headings ("Clinical Operations", "Patient Care", ...) were
+     `white-space: nowrap; overflow: hidden` - i.e. any heading wider
+     than the rail was silently amputated with no ellipsis and no
+     tooltip. Letter-spacing 0.08em on uppercase text made that worse.
+     Headings are short, so the correct fix is to let them WRAP instead
+     of being cut: nothing is hidden, nothing is shrunk, and no label is
+     removed. */
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.35);
+  padding: var(--space-2) var(--space-3);
+  margin-top: var(--space-3);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.35;
+  transition: opacity var(--transition-base);
+}
+
+.sidebar.collapsed .sidebar-nav-label {
+  opacity: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3);
+  border-radius: var(--radius-md);
+  color: var(--sidebar-text);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+  /* without min-width:0 a flex item refuses to shrink below its content
+     width, so a long label ("IPD / Admissions") widened the row past the
+     rail and got clipped by the sidebar instead of ellipsising inside
+     its own row. */
+  min-width: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  min-height: 42px;
+}
+
+.sidebar-nav-item:hover {
+  background: var(--sidebar-bg-hover);
+  color: #ffffff;
+}
+
+.sidebar-nav-item.active {
+  background: var(--color-primary-600);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+}
+
+.sidebar-nav-item i,
+.sidebar-nav-item .nav-icon {
+  font-size: 1.15rem;
+  width: 22px;
+  min-width: 22px;
+  /* icon must never be squeezed by a long label (that is what made
+     icon and text visually overlap at narrow widths) */
+  flex: 0 0 22px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-nav-item .nav-text {
+  /* the label takes the remaining width, shrinks properly, and degrades
+     to an ellipsis (with a title tooltip in the markup) instead of being
+     chopped mid-word by the sidebar edge */
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 1;
+  transition: opacity var(--transition-base);
+}
+
+.sidebar-nav-item .nav-badge,
+.sidebar-nav-item .nav-arrow {
+  flex-shrink: 0;
+}
+
+.sidebar.collapsed .sidebar-nav-item .nav-text {
+  opacity: 0;
+  width: 0;
+  flex: 0 0 0;
+  /* fully removed from layout when intentionally collapsed, so the icon
+     stays centred in the 72px rail instead of being pushed half out of
+     view by a zero-opacity-but-still-laid-out label */
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.sidebar.collapsed .sidebar-nav-item {
+  justify-content: center;
+  gap: 0;
+}
+
+.sidebar.collapsed .sidebar-brand {
+  justify-content: center;
+  padding-left: var(--space-3);
+  padding-right: var(--space-3);
+}
+
+.sidebar.collapsed .sidebar-footer-user {
+  justify-content: center;
+}
+
+/* Collapsed-rail tooltip: the full label is still available on hover AND
+   on keyboard focus, so collapsing never makes an item unidentifiable.
+   Uses the native title attribute as a fallback too (see app.js). */
+.sidebar.collapsed .sidebar-nav-item::after {
+  content: attr(data-label);
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--color-gray-900, #0f172a);
+  color: #ffffff;
+  padding: 6px 10px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  transition: opacity var(--transition-fast);
+}
+
+.sidebar.collapsed .sidebar-nav-item:hover::after,
+.sidebar.collapsed .sidebar-nav-item:focus-visible::after {
+  opacity: 1;
+}
+
+.sidebar.collapsed .sidebar-nav-item[data-label=""]::after {
+  content: none;
+}
+
+.sidebar-nav-item .nav-badge {
+  margin-left: auto;
+  background: var(--color-danger);
+  color: #ffffff;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  min-width: 20px;
+  text-align: center;
+  transition: opacity var(--transition-base);
+}
+
+.sidebar-nav-item .nav-badge:empty {
+  /* Only index.html's dashboard.js populates #patientCountBadge; on every
+     other page it exists but is never filled in, so hide it rather than
+     show an empty red dot next to "Patients" on 14 of 15 pages. */
+  display: none;
+}
+
+.sidebar.collapsed .sidebar-nav-item .nav-badge {
+  opacity: 0;
+  width: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-nav-item .nav-arrow {
+  margin-left: auto;
+  font-size: 0.7rem;
+  transition: transform var(--transition-fast);
+}
+
+.sidebar.collapsed .sidebar-nav-item .nav-arrow {
+  opacity: 0;
+  width: 0;
+}
+
+/* Sidebar Submenu */
+.sidebar-submenu {
+  padding-left: var(--space-10);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-smooth);
+}
+
+.sidebar-submenu.open {
+  max-height: 300px;
+}
+
+.sidebar.collapsed .sidebar-submenu {
+  display: none;
+}
+
+.sidebar-submenu .sidebar-nav-item {
+  font-size: var(--font-size-xs);
+  padding: var(--space-2) var(--space-3);
+  min-height: 34px;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+  padding: var(--space-4) var(--space-3);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex-shrink: 0; /* never let the profile/logout area get squeezed out by a tall nav list */
+}
+
+.sidebar-footer-user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.sidebar-footer-user:hover {
+  background: var(--sidebar-bg-hover);
+}
+
+.sidebar-footer-avatar {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-sm);
+}
+
+.sidebar-footer-info {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: opacity var(--transition-base);
+}
+
+.sidebar-footer-name,
+.sidebar-footer-role {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-footer-user {
+  min-width: 0;
+}
+
+.sidebar.collapsed .sidebar-footer-info {
+  opacity: 0;
+  width: 0;
+}
+
+.sidebar-footer-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: #ffffff;
+}
+
+.sidebar-footer-role {
+  font-size: var(--font-size-xs);
+  color: var(--sidebar-text);
+}
+
+/* Sidebar Toggle Button */
+.sidebar-toggle {
+  position: absolute;
+  /* pinned relative to the footer so it can never sit on top of the
+     user/profile block or drift off-screen on short viewports */
+  bottom: 96px;
+  right: -12px;
+  width: 24px;
+  height: 24px;
+  background: var(--surface-bg);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-gray-600);
+  font-size: 0.7rem;
+  box-shadow: var(--surface-shadow);
+  z-index: 10;
+  transition: all var(--transition-fast);
+}
+
+.sidebar-toggle:hover {
+  background: var(--color-primary-50);
+  color: var(--color-primary-600);
+  border-color: var(--color-primary-300);
+}
+
+/* ============================================
+   MAIN CONTENT AREA
+   ============================================ */
+.main-content {
+  flex: 1;
+  min-width: 0; /* flex item default min-width is "auto" too - without this, wide table/card content could force the whole content column wider than the viewport instead of scrolling internally, dragging the sidebar/layout with it */
+  margin-left: var(--sidebar-width);
+  transition: margin-left var(--sidebar-transition);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.sidebar.collapsed ~ .main-content {
+  margin-left: var(--sidebar-collapsed-width);
+}
+
+/* ============================================
+   TOP HEADER
+   ============================================ */
+.top-header {
+  /* min-height instead of a hard height: at 360-480px the header content
+     wraps to two lines rather than being vertically clipped */
+  min-height: var(--header-height);
+  height: var(--header-height);
+  box-sizing: border-box;
+  gap: var(--space-3);
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--header-border);
+  box-shadow: var(--header-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-6);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  transition: background var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.header-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+}
+
+.header-breadcrumb a {
+  color: var(--color-gray-500);
+  transition: color var(--transition-fast);
+}
+
+.header-breadcrumb a:hover {
+  color: var(--color-primary-600);
+}
+
+.header-breadcrumb .separator {
+  color: var(--color-gray-300);
+}
+
+.header-breadcrumb .current {
+  color: var(--color-gray-900);
+  font-weight: var(--font-weight-medium);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Header Search */
+.header-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.header-search input {
+  width: 260px;
+  height: 40px;
+  padding: 0 var(--space-4) 0 var(--space-10);
+  background: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-900);
+  transition: all var(--transition-fast);
+}
+
+.header-search input:focus {
+  border-color: var(--color-primary-400);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  background: var(--surface-bg);
+  width: 320px;
+}
+
+.header-search i {
+  position: absolute;
+  left: var(--space-3);
+  color: var(--color-gray-400);
+  font-size: var(--font-size-sm);
+  pointer-events: none;
+}
+
+[data-theme="dark"] .header-search input {
+  background: var(--color-gray-800);
+  border-color: var(--color-gray-600);
+  color: var(--color-gray-100);
+}
+
+/* Global Search Results Dropdown */
+.global-search-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 360px;
+  max-height: 420px;
+  overflow-y: auto;
+  background: var(--surface-bg);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: 200;
+}
+
+.global-search-results.hidden {
+  display: none;
+}
+
+.global-search-group-label {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-gray-400);
+  background: var(--color-gray-50);
+}
+
+.global-search-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.global-search-item:hover,
+.global-search-item.active {
+  background: var(--color-gray-50);
+}
+
+.global-search-item i {
+  color: var(--color-gray-400);
+  width: 16px;
+  text-align: center;
+}
+
+.global-search-item-title {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-gray-900);
+}
+
+.global-search-item-sub {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-400);
+}
+
+.global-search-empty {
+  padding: var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-400);
+  text-align: center;
+}
+
+.header-search-kbd {
+  position: absolute;
+  right: var(--space-3);
+  font-size: 10px;
+  color: var(--color-gray-400);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-sm);
+  padding: 1px 5px;
+  pointer-events: none;
+}
+
+[data-theme="dark"] .global-search-results {
+  background: var(--color-gray-800);
+  border-color: var(--color-gray-600);
+}
+
+[data-theme="dark"] .global-search-group-label {
+  background: var(--color-gray-900);
+}
+
+[data-theme="dark"] .global-search-item:hover,
+[data-theme="dark"] .global-search-item.active {
+  background: var(--color-gray-700);
+}
+
+[data-theme="dark"] .global-search-item-title {
+  color: var(--color-gray-100);
+}
+
+/* Header Icon Buttons */
+.header-icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-600);
+  font-size: 1.15rem;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.header-icon-btn:hover {
+  background: var(--color-gray-100);
+  color: var(--color-gray-900);
+}
+
+[data-theme="dark"] .header-icon-btn:hover {
+  background: var(--color-gray-700);
+  color: var(--color-gray-100);
+}
+
+.header-icon-btn .notification-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-danger);
+  border: 2px solid var(--header-bg);
+}
+
+/* Dark Mode Toggle */
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-gray-600);
+  font-size: 1.15rem;
+  transition: all var(--transition-fast);
+}
+
+.theme-toggle:hover {
+  background: var(--color-gray-100);
+  color: var(--color-primary-600);
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+  background: var(--color-gray-700);
+  color: var(--color-primary-400);
+}
+
+/* Header User Dropdown */
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-1) var(--space-3) var(--space-1) var(--space-1);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.header-user:hover {
+  background: var(--color-gray-50);
+}
+
+[data-theme="dark"] .header-user:hover {
+  background: var(--color-gray-700);
+}
+
+.header-user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-xs);
+}
+
+.header-user-info {
+  text-align: left;
+}
+
+.header-user-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+}
+
+.header-user-role {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-500);
+}
+
+[data-theme="dark"] .header-user-name {
+  color: var(--color-gray-900);
+}
+
+/* ============================================
+   PAGE CONTENT WRAPPER
+   ============================================ */
+.page-content {
+  flex: 1;
+  padding: var(--space-6);
+  overflow-y: auto;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.page-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-900);
+}
+
+.page-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin-top: var(--space-1);
+}
+
+.page-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+[data-theme="dark"] .page-title {
+  color: var(--color-gray-900);
+}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+@media (max-width: 1024px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.mobile-open {
+    transform: translateX(0);
+    width: var(--sidebar-width);
+  }
+
+  .sidebar.mobile-open.collapsed {
+    width: var(--sidebar-width);
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+  }
+
+  .header-search input {
+    width: 180px;
+  }
+
+  .header-search input:focus {
+    width: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-content {
+    padding: var(--space-4);
+  }
+
+  .header-search {
+    display: none;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .page-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-right {
+    gap: var(--space-1);
+  }
+
+  .header-icon-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+  }
+
+  .header-user-info {
+    display: none;
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+.text-primary { color: var(--color-primary-600); }
+.text-success { color: var(--color-success); }
+.text-warning { color: var(--color-warning); }
+.text-danger { color: var(--color-danger); }
+.text-info { color: var(--color-info); }
+.text-muted { color: var(--color-gray-500); }
+.text-xs { font-size: var(--font-size-xs); }
+.text-sm { font-size: var(--font-size-sm); }
+.text-lg { font-size: var(--font-size-lg); }
+.text-xl { font-size: var(--font-size-xl); }
+.font-medium { font-weight: var(--font-weight-medium); }
+.font-semibold { font-weight: var(--font-weight-semibold); }
+.font-bold { font-weight: var(--font-weight-bold); }
+.truncate { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.mt-2 { margin-top: var(--space-2); }
+.mt-4 { margin-top: var(--space-4); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-6 { margin-bottom: var(--space-6); }
+.w-full { width: 100%; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+/* Mobile sidebar overlay */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: calc(var(--z-sidebar) - 1);
+  opacity: 0;
+  transition: opacity var(--transition-smooth);
+}
+
+.sidebar-overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+@media (max-width: 1024px) {
+  .sidebar-overlay.active {
+    display: block;
+  }
+}
+
+/* ============================================
+   SIDEBAR / HEADER OCCUPANCY - BREAKPOINT PASS
+   Verified with headless Chromium screenshots at
+   1920 / 1440 / 1280 / 1024 / 768 / 480 / 390 / 360.
+   One shared rail behaviour for every page - no
+   per-page sidebar variants.
+   ============================================ */
+
+/* Header内容 must shrink before it overflows */
+.top-header > * {
+  min-width: 0;
+}
+
+.header-left,
+.header-right {
+  min-width: 0;
+}
+
+.header-right {
+  flex-shrink: 0;
+}
+
+.header-title,
+.header-breadcrumb {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 1280px and below the rail is still expanded but space is tighter:
+   trim horizontal padding instead of trimming the text. */
+@media (max-width: 1280px) {
+  .sidebar-nav {
+    padding-left: var(--space-2);
+    padding-right: var(--space-2);
+  }
+}
+
+/* Mobile drawer (<=1024px): the drawer must never be wider than the
+   viewport, or the right edge of every label is clipped off-screen. */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: min(var(--sidebar-width), 88vw);
+    max-width: 88vw;
+  }
+
+  .sidebar.mobile-open,
+  .sidebar.mobile-open.collapsed {
+    width: min(var(--sidebar-width), 88vw);
+  }
+
+  /* A drawer is always fully expanded: the collapsed rail rules must not
+     leak into it (that is what hid labels/tooltips on mobile). */
+  .sidebar.mobile-open.collapsed .nav-text,
+  .sidebar.mobile-open.collapsed .sidebar-nav-label,
+  .sidebar.mobile-open.collapsed .sidebar-brand-text,
+  .sidebar.mobile-open.collapsed .sidebar-footer-info {
+    opacity: 1;
+    width: auto;
+    height: auto;
+    flex: 1 1 auto;
+    margin: revert;
+    padding: revert;
+  }
+
+  .sidebar.mobile-open.collapsed .sidebar-nav-item {
+    justify-content: flex-start;
+    gap: var(--space-3);
+  }
+
+  .sidebar.mobile-open.collapsed .sidebar-nav-item::after {
+    content: none;
+  }
+
+  /* The desktop toggle is meaningless in drawer mode and used to sit on
+     top of the menu. */
+  .sidebar-toggle {
+    display: none;
+  }
+}
+
+/* 480px and below: keep the drawer readable rather than squeezing it. */
+@media (max-width: 480px) {
+  .sidebar,
+  .sidebar.mobile-open,
+  .sidebar.mobile-open.collapsed {
+    width: min(280px, 90vw);
+    max-width: 90vw;
+  }
+
+  .top-header {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+}
+
+/* 390px / 360px handsets: the narrowest real devices we support. */
+@media (max-width: 400px) {
+  .sidebar,
+  .sidebar.mobile-open,
+  .sidebar.mobile-open.collapsed {
+    width: min(272px, 92vw);
+    max-width: 92vw;
+  }
+}
+
+/* ============================================================
+   DARK THEME REFINEMENTS
+   The dark theme used to invert only the grey scale, which left many
+   components (table headers, inputs, chips, modals, badges, AI chat,
+   settings) light-on-dark or dark-on-dark. This block gives dark mode one
+   coherent palette:
+     page #0f172a | card #1e293b | input #0b1220 | header #172033
+     border #334155 | text #e2e8f0 | muted #94a3b8 | accent #a5b4fc
+   `html[data-theme="dark"]` (one extra type selector) is used on purpose
+   so these win over the page-level <style> blocks that hard-code light
+   colours.
+   ============================================================ */
+
+[data-theme="dark"] {
+  color-scheme: dark;   /* native date pickers, select popups, scrollbars */
+
+  /* tinted (not pastel) status / accent colours */
+  --color-primary-light: rgba(129, 140, 248, 0.18);
+  --color-primary-50:    rgba(129, 140, 248, 0.12);
+  --color-primary-100:   rgba(129, 140, 248, 0.18);
+  --color-primary-200:   rgba(129, 140, 248, 0.28);
+  --color-success-light: rgba(16, 185, 129, 0.16);
+  --color-success-dark:  #6ee7b7;
+  --color-warning-light: rgba(245, 158, 11, 0.16);
+  --color-warning-dark:  #fcd34d;
+  --color-danger-light:  rgba(239, 68, 68, 0.16);
+  --color-danger-dark:   #fca5a5;
+  --color-info-light:    rgba(6, 182, 212, 0.16);
+  --color-info-dark:     #67e8f9;
+}
+
+/* ---- tables ---- */
+html[data-theme="dark"] thead,
+html[data-theme="dark"] .data-table thead,
+html[data-theme="dark"] .data-table th,
+html[data-theme="dark"] .billing-table th,
+html[data-theme="dark"] .invoice-items-table th {
+  background: #172033;
+  color: #94a3b8;
+  border-color: #334155;
+}
+html[data-theme="dark"] .data-table td,
+html[data-theme="dark"] .invoice-items-table td { border-color: #263449; }
+html[data-theme="dark"] .data-table tbody tr:hover td { background: rgba(129, 140, 248, 0.07); }
+html[data-theme="dark"] .table-filter-row,
+html[data-theme="dark"] .mini-stat { background: #172033; border-color: #334155; }
+html[data-theme="dark"] .mini-stat-label,
+html[data-theme="dark"] .tab-item { color: #94a3b8; }
+html[data-theme="dark"] .tab-item.active { color: #c7d2fe; }
+
+/* ---- form controls ---- */
+html[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="hidden"]),
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+  background-color: #0b1220;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder { color: #64748b; opacity: 1; }
+html[data-theme="dark"] input:focus,
+html[data-theme="dark"] select:focus,
+html[data-theme="dark"] textarea:focus {
+  border-color: #818cf8;
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.22);
+}
+html[data-theme="dark"] option { background: #1e293b; color: #e2e8f0; }
+html[data-theme="dark"] label,
+html[data-theme="dark"] .form-label { color: #cbd5e1; }
+html[data-theme="dark"] .header-search input { background: #0b1220; }
+html[data-theme="dark"] kbd,
+html[data-theme="dark"] .header-search-kbd { color: #94a3b8; background: #1e293b; border-color: #334155; }
+
+/* ---- buttons / links / badges ---- */
+html[data-theme="dark"] .btn-secondary { background: #334155; color: #f1f5f9; border-color: #475569; }
+html[data-theme="dark"] .btn-secondary:hover { background: #3f4e66; }
+html[data-theme="dark"] .btn-outline-primary,
+html[data-theme="dark"] .btn-outline { color: #a5b4fc; border-color: #6366f1; background: transparent; }
+html[data-theme="dark"] .btn-outline-primary:hover,
+html[data-theme="dark"] .btn-outline:hover { background: rgba(129, 140, 248, 0.16); }
+html[data-theme="dark"] .btn-ghost { color: #cbd5e1; }
+html[data-theme="dark"] .btn-ghost:hover { background: rgba(148, 163, 184, 0.14); }
+html[data-theme="dark"] .card-header-action,
+html[data-theme="dark"] .eyebrow,
+html[data-theme="dark"] .card-body a:not(.btn):not(.notification-item) { color: #a5b4fc; }
+html[data-theme="dark"] .badge-neutral { background: #334155; color: #e2e8f0; }
+html[data-theme="dark"] .badge-primary { background: rgba(129, 140, 248, 0.2); color: #c7d2fe; }
+html[data-theme="dark"] .filter-chip { background: #1e293b; color: #cbd5e1; border-color: #334155; }
+html[data-theme="dark"] .filter-chip.active { background: rgba(129, 140, 248, 0.2); color: #c7d2fe; border-color: #6366f1; }
+html[data-theme="dark"] .chart-empty-state { color: #94a3b8 !important; }
+html[data-theme="dark"] .text-muted { color: #94a3b8; }
+
+/* ---- modals (page-level modals hard-code white) ---- */
+html[data-theme="dark"] .prescription-modal-box,
+html[data-theme="dark"] .billing-modal {
+  background: #1e293b;
+  color: #e2e8f0;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
+}
+html[data-theme="dark"] .prescription-modal-header,
+html[data-theme="dark"] .prescription-modal-footer,
+html[data-theme="dark"] .billing-modal-header,
+html[data-theme="dark"] .billing-modal-footer { background: #1e293b; border-color: #334155; }
+html[data-theme="dark"] .prescription-modal-header h2,
+html[data-theme="dark"] .billing-modal-header h2 { color: #f1f5f9; }
+html[data-theme="dark"] .prescription-close,
+html[data-theme="dark"] .billing-close { background: #334155; color: #e2e8f0; }
+html[data-theme="dark"] .prescription-close:hover,
+html[data-theme="dark"] .billing-close:hover { background: #475569; }
+html[data-theme="dark"] .prescription-form-group label,
+html[data-theme="dark"] .invoice-form-group label { color: #cbd5e1; }
+html[data-theme="dark"] .invoice-items-table { border-color: #334155; }
+html[data-theme="dark"] .invoice-items-table tr[data-item-id] { background: #172033; border-color: #334155; }
+html[data-theme="dark"] .invoice-totals-preview { border-color: #334155; color: #cbd5e1; }
+html[data-theme="dark"] .invoice-totals-preview .grand { color: #a5b4fc; }
+html[data-theme="dark"] .invoice-view-body { background: #0f172a; }   /* the invoice sheet itself stays white paper */
+html[data-theme="dark"] .billing-mobile-search input { background: #0b1220; color: #e2e8f0; border-color: #334155; }
+html[data-theme="dark"] .billing-table td .bill-sub { color: #94a3b8; }
+html[data-theme="dark"] .bill-status.paid    { background: rgba(16, 185, 129, .18); color: #6ee7b7; }
+html[data-theme="dark"] .bill-status.pending { background: rgba(245, 158, 11, .18); color: #fcd34d; }
+html[data-theme="dark"] .bill-status.overdue { background: rgba(239, 68, 68, .18);  color: #fca5a5; }
+html[data-theme="dark"] .bill-status.void    { background: #334155; color: #cbd5e1; }
+@media (max-width: 720px) {
+  html[data-theme="dark"] .billing-table tr { background: #1e293b; border-color: #334155; }
+  html[data-theme="dark"] .billing-table td.cell-actions { border-color: #334155; }
+  html[data-theme="dark"] .billing-table td.cell-actions .btn { border-color: #334155; }
+}
+
+/* ---- AI assistant page: it used --color-gray-900 as a "dark" colour, but in
+        dark mode that token is near-white ---- */
+html[data-theme="dark"] .ai-chat-main-body { background: #0b1220; }
+html[data-theme="dark"] .ai-chat-bubble { background: #1e293b; color: #e2e8f0; border: 1px solid #334155; }
+html[data-theme="dark"] .ai-quick-action-btn { background: #1e293b; color: #e2e8f0; border-color: #334155; }
+html[data-theme="dark"] .ai-quick-action-btn:hover { background: #26344b; }
+html[data-theme="dark"] .ai-chat-main-body strong { color: #c7d2fe; }
+
+/* ---- Settings page ---- */
+html[data-theme="dark"] .settings-card,
+html[data-theme="dark"] .settings-nav { background: #1e293b; border-color: #334155; color: #e2e8f0; }
+html[data-theme="dark"] .settings-tab { color: #cbd5e1; }
+html[data-theme="dark"] .settings-tab.active { background: rgba(129, 140, 248, 0.2); color: #c7d2fe; }
+html[data-theme="dark"] .top-header,
+html[data-theme="dark"] .header-icon-btn,
+html[data-theme="dark"] .theme-toggle { background: #1e293b; border-color: #334155; color: #cbd5e1; }
+html[data-theme="dark"] .form-control { background: #0b1220; color: #e2e8f0; border-color: #334155; }
+
+/* ---- stat / accent icon tiles ---- */
+html[data-theme="dark"] .stat-card-icon { background: rgba(129, 140, 248, 0.16); }
+html[data-theme="dark"] .stat-card-icon.blue  { background: rgba(59, 130, 246, 0.18); }
+html[data-theme="dark"] .stat-card-icon.amber { background: rgba(245, 158, 11, 0.18); }
+html[data-theme="dark"] .stat-card-icon.red   { background: rgba(239, 68, 68, 0.18); }
+html[data-theme="dark"] .stat-card-icon.teal  { background: rgba(20, 184, 166, 0.18); }
+html[data-theme="dark"] .stat-card-change { color: #94a3b8; }
+
+/* ---- second pass: rules that the existing dark blocks (which use the inverted
+        grey tokens) or !important declarations were still winning against ---- */
+html[data-theme="dark"] .form-select,
+html[data-theme="dark"] .form-textarea,
+html[data-theme="dark"] .form-input,
+html[data-theme="dark"] .form-control,
+html[data-theme="dark"] select.form-select {
+  background-color: #0b1220;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+html[data-theme="dark"] .eyebrow { color: #a5b4fc !important; }
+html[data-theme="dark"] .ai-chat-message.bot .ai-chat-bubble {
+  background: #1e293b;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+html[data-theme="dark"] .mini-stat-value { color: #f1f5f9; }
+html[data-theme="dark"] .logo-text span,
+html[data-theme="dark"] .brand span,
+html[data-theme="dark"] .brand-name span { color: #818cf8; }
+/* ---- third pass: remaining low-contrast text and one light "dark-mode"
+        surface that came from reusing the inverted grey scale as a
+        background (--color-gray-800 is near-white in dark mode) ---- */
+html[data-theme="dark"] .vital-card { background: #172033; }
+html[data-theme="dark"] .vital-card .vital-value { color: #f1f5f9; }
+html[data-theme="dark"] .vital-card .vital-label,
+html[data-theme="dark"] .vital-card .vital-unit { color: #94a3b8; }
+html[data-theme="dark"] .lab-pending { color: #fbbf24; }
+html[data-theme="dark"] .lab-completed { color: #6ee7b7; }
+html[data-theme="dark"] .patient-card-detail-label,
+html[data-theme="dark"] .activity-time,
+html[data-theme="dark"] .timeline-date { color: #94a3b8; }
+html[data-theme="dark"] #aiPatientContext strong,
+html[data-theme="dark"] .ai-chat-main-body strong { color: #c7d2fe; }

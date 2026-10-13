@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+<script>(function(){try{var t=JSON.parse(localStorage.getItem("careflow_theme"));if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CareFlow AI - Settings</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="tables.css">
+    <link rel="stylesheet" href="modals.css">
+    <link rel="stylesheet" href="forms.css">
+    <link rel="stylesheet" href="settings.css">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- =====================================================
+         SIDEBAR OVERLAY
+    ====================================================== -->
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+
+    <!-- =====================================================
+         MAIN SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <!-- BRAND -->
+
+        <div class="sidebar-brand">
+
+            <div class="sidebar-brand-icon">
+                <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+
+            <div class="sidebar-brand-text">
+                Care<span>Flow</span> AI
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+                <nav class="sidebar-nav">
+      <div class="sidebar-nav-section">
+        <a href="index.html" class="sidebar-nav-item"><i class="fa-solid fa-grid-2"></i><span class="nav-text">Dashboard</span></a>
+      </div>
+      <div class="sidebar-nav-label">Patient Care</div>
+      <div class="sidebar-nav-section">
+        <a href="patients.html" class="sidebar-nav-item"><i class="fa-solid fa-user-injured"></i><span class="nav-text">Patients</span><span class="nav-badge" id="patientCountBadge"></span></a>
+        <a href="appointments.html" class="sidebar-nav-item"><i class="fa-solid fa-calendar-check"></i><span class="nav-text">Appointments</span></a>
+        <a href="doctors.html" class="sidebar-nav-item"><i class="fa-solid fa-user-doctor"></i><span class="nav-text">Doctors</span></a>
+        <a href="departments.html" class="sidebar-nav-item"><i class="fa-solid fa-hospital"></i><span class="nav-text">Departments</span></a>
+      </div>
+      <div class="sidebar-nav-label">Clinical Operations</div>
+      <div class="sidebar-nav-section">
+        <a href="opd.html" class="sidebar-nav-item"><i class="fa-solid fa-stethoscope"></i><span class="nav-text">OPD Queue</span></a>
+        <a href="ipd.html" class="sidebar-nav-item"><i class="fa-solid fa-bed-pulse"></i><span class="nav-text">IPD / Admissions</span></a>
+      </div>
+      <div class="sidebar-nav-label">Laboratory</div>
+      <div class="sidebar-nav-section">
+        <a href="lab-orders.html" class="sidebar-nav-item"><i class="fa-solid fa-vial-circle-check"></i><span class="nav-text">Lab Orders</span></a>
+        <a href="lab-reports.html" class="sidebar-nav-item"><i class="fa-solid fa-flask"></i><span class="nav-text">Lab Reports</span></a>
+      </div>
+      <div class="sidebar-nav-label">Medical</div>
+      <div class="sidebar-nav-section">
+        <a href="prescriptions.html" class="sidebar-nav-item"><i class="fa-solid fa-file-prescription"></i><span class="nav-text">Prescriptions</span></a>
+        <a href="pharmacy.html" class="sidebar-nav-item"><i class="fa-solid fa-pills"></i><span class="nav-text">Pharmacy</span></a>
+      </div>
+      <div class="sidebar-nav-label">Finance</div>
+      <div class="sidebar-nav-section">
+        <a href="billing.html" class="sidebar-nav-item"><i class="fa-solid fa-file-invoice-dollar"></i><span class="nav-text">Billing</span></a>
+      </div>
+      <div class="sidebar-nav-label">Tools</div>
+      <div class="sidebar-nav-section">
+        <a href="ai-assistant.html" class="sidebar-nav-item"><i class="fa-solid fa-robot"></i><span class="nav-text">AI Assistant</span></a>
+        <a href="settings.html" class="sidebar-nav-item active"><i class="fa-solid fa-gear"></i><span class="nav-text">Settings</span></a>
+        <a href="#" id="logoutBtn" class="sidebar-nav-item"><i class="fa-solid fa-right-from-bracket"></i><span class="nav-text">Logout</span></a>
+      </div>
+    </nav>
+
+
+        <!-- FOOTER -->
+
+        <div class="sidebar-footer">
+
+            <div class="sidebar-footer-user">
+
+                <div class="sidebar-footer-avatar">
+                    DR
+                </div>
+
+                <div class="sidebar-footer-info">
+
+                    <div class="sidebar-footer-name" id="sidebarUserName">
+                        Dr. Rachel Green
+                    </div>
+
+                    <div class="sidebar-footer-role" id="sidebarUserRole">
+                        Senior Physician
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- COLLAPSE BUTTON -->
+
+        <button class="sidebar-toggle" id="sidebarToggle" title="Toggle sidebar" aria-label="Toggle sidebar">
+
+            <i class="fa-solid fa-chevron-left"></i>
+
+        </button>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOP HEADER
+        ================================================== -->
+
+        <header class="top-header">
+
+            <div class="header-left">
+
+                <button class="header-icon-btn"
+                    id="mobileMenuBtn" title="Open navigation" aria-label="Open navigation">
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+
+                <div class="header-breadcrumb">
+
+                    <a href="index.html">
+                        Home
+                    </a>
+
+                    <span class="separator">
+                        /
+                    </span>
+
+                    <span class="current">
+                        Settings
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <!-- SEARCH -->
+
+                <div class="header-search">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="text"
+                        id="settingsSearch"
+                        placeholder="Search settings...">
+
+                </div>
+
+
+                <!-- NOTIFICATION -->
+
+                <button class="header-icon-btn"
+                    id="headerNotificationBtn" title="Notifications" aria-label="Notifications">
+
+                    <i class="fa-solid fa-bell"></i>
+
+                </button>
+
+
+                <!-- THEME -->
+
+                <button class="theme-toggle"
+                    id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+
+                    <i class="fa-solid fa-moon"></i>
+
+                </button>
+
+
+                <!-- USER -->
+
+                <div class="header-user">
+
+                    <div class="header-user-avatar">
+                        RG
+                    </div>
+
+                    <div class="header-user-info">
+
+                        <div class="header-user-name" id="headerUserName">
+                            Dr. Rachel Green
+                        </div>
+
+                        <div class="header-user-role" id="headerUserRole">
+                            Senior Physician
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             PAGE
+        ================================================== -->
+
+        <div class="page-content">
+
+
+            <!-- PAGE HEADER -->
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1 class="page-title">
+                        Settings
+                    </h1>
+
+                    <p class="page-subtitle">
+                        Manage your CareFlow AI preferences and account
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 SETTINGS LAYOUT
+            ================================================== -->
+
+            <div class="settings-layout">
+
+
+                <!-- SETTINGS SIDE NAV -->
+
+                <aside class="settings-nav">
+
+                    <button
+                        class="settings-tab active"
+                        data-tab="profile">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        <span>Profile</span>
+
+                    </button>
+
+
+                    <button
+                        class="settings-tab"
+                        data-tab="appearance">
+
+                        <i class="fa-solid fa-palette"></i>
+
+                        <span>Appearance</span>
+
+                    </button>
+
+
+                    <button
+                        class="settings-tab"
+                        data-tab="notifications">
+
+                        <i class="fa-solid fa-bell"></i>
+
+                        <span>Notifications</span>
+
+                    </button>
+
+
+                    <button
+                        class="settings-tab"
+                        data-tab="security">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        <span>Security</span>
+
+                    </button>
+
+
+                    <button
+                        class="settings-tab"
+                        data-tab="system">
+
+                        <i class="fa-solid fa-sliders"></i>
+
+                        <span>System</span>
+
+                    </button>
+
+
+                    <button
+                        class="settings-tab"
+                        data-tab="users"
+                        id="usersTabBtn"
+                        class="is-hidden">
+
+                        <i class="fa-solid fa-users-gear"></i>
+
+                        <span>Users &amp; Roles</span>
+
+                    </button>
+
+                </aside>
+
+
+                <!-- =================================================
+                     SETTINGS CONTENT
+                ================================================== -->
+
+                <div class="settings-content">
+
+
+                    <!-- =================================================
+                         PROFILE
+                    ================================================== -->
+
+                    <section
+                        class="settings-section active"
+                        id="profile">
+
+                        <div class="settings-card">
+
+                            <div class="settings-card-header">
+
+                                <h2>
+                                    Profile Information
+                                </h2>
+
+                                <p>
+                                    Update your personal and professional information.
+                                </p>
+
+                            </div>
+
+
+                            <div class="settings-card-body">
+
+                                <div class="profile-header">
+
+                                    <div class="profile-avatar">
+                                        DR
+                                    </div>
+
+                                    <div class="profile-info">
+
+                                        <h3>
+                                            Dr. Rachel Green
+                                        </h3>
+
+                                        <p>
+                                            Senior Physician
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-grid">
+
+
+                                    <div class="form-group">
+
+                                        <label for="firstName">
+                                            First Name
+                                        </label>
+
+                                        <input
+                                            id="firstName"
+                                            class="form-control"
+                                            value="Rachel">
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="lastName">
+                                            Last Name
+                                        </label>
+
+                                        <input
+                                            id="lastName"
+                                            class="form-control"
+                                            value="Green">
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="email">
+                                            Email
+                                        </label>
+
+                                        <input
+                                            id="email"
+                                            type="email"
+                                            class="form-control"
+                                            value="rachel.green@careflow.ai">
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="phone">
+                                            Phone
+                                        </label>
+
+                                        <input
+                                            id="phone"
+                                            class="form-control"
+                                            value="+91 98765 43210">
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="department">
+                                            Department
+                                        </label>
+
+                                        <select
+                                            id="department"
+                                            class="form-control">
+
+                                            <option>
+                                                General Medicine
+                                            </option>
+
+                                            <option>
+                                                Cardiology
+                                            </option>
+
+                                            <option>
+                                                Neurology
+                                            </option>
+
+                                            <option>
+                                                Pediatrics
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="role">
+                                            Role
+                                        </label>
+
+                                        <select
+                                            id="role"
+                                            class="form-control">
+
+                                            <option>
+                                                Senior Physician
+                                            </option>
+
+                                            <option>
+                                                Physician
+                                            </option>
+
+                                            <option>
+                                                Administrator
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-actions">
+
+                                    <button
+                                        class="btn btn-outline"
+                                        id="resetProfileBtn">
+
+                                        Reset
+
+                                    </button>
+
+
+                                    <button
+                                        class="btn btn-primary"
+                                        id="saveProfileBtn">
+
+                                        <i class="fa-solid fa-check"></i>
+
+                                        Save Changes
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- =================================================
+                         APPEARANCE
+                    ================================================== -->
+
+                    <section
+                        class="settings-section"
+                        id="appearance">
+
+                        <div class="settings-card">
+
+                            <div class="settings-card-header">
+
+                                <h2>
+                                    Appearance
+                                </h2>
+
+                                <p>
+                                    Customize how CareFlow AI looks on your device.
+                                </p>
+
+                            </div>
+
+
+                            <div class="settings-card-body">
+
+
+                                <div class="setting-row">
+
+                                    <div class="setting-info">
+
+                                        <h3>
+                                            Dark Mode
+                                        </h3>
+
+                                        <p>
+                                            Use a darker interface for comfortable viewing.
+                                        </p>
+
+                                    </div>
+
+
+                                    <label class="switch">
+
+                                        <input
+                                            type="checkbox"
+                                            id="darkModeSwitch"
+                                            aria-label="Dark Mode"
+                                            title="Dark Mode">
+
+                                        <span class="slider"></span>
+
+                                    </label>
+
+                                </div>
+
+
+                                <div class="setting-row">
+
+                                    <div class="setting-info">
+
+                                        <h3>
+                                            Compact Sidebar
+                                        </h3>
+
+                                        <p>
+                                            Reduce the sidebar width to show more content.
+                                        </p>
+
+                                    </div>
+
+
+                                    <label class="switch">
+
+                                        <input
+                                            type="checkbox"
+                                            id="compactSidebarSwitch"
+                                            aria-label="Compact Sidebar"
+                                            title="Compact Sidebar">
+
+                                        <span class="slider"></span>
+
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- =================================================
+                         NOTIFICATIONS
+                    ================================================== -->
+
+                    <section
+                        class="settings-section"
+                        id="notifications">
+
+                        <div class="settings-card">
+
+                            <div class="settings-card-header">
+
+                                <h2>
+                                    Notifications
+                                </h2>
+
+                                <p>
+                                    Control alerts and notifications from CareFlow AI.
+                                </p>
+
+                            </div>
+
+
+                            <div class="settings-card-body">
+
+
+                                <div class="setting-row">
+
+                                    <div class="setting-info">
+
+                                        <h3>
+                                            Appointment Reminders
+                                        </h3>
+
+                                        <p>
+                                            Receive reminders about upcoming appointments.
+                                        </p>
+
+                                    </div>
+
+                                    <label class="switch">
+
+                                        <input
+                                            type="checkbox"
+                                            id="appointmentNotifications"
+                                            aria-label="Appointment Reminders"
+                                            title="Appointment Reminders"
+                                            checked>
+
+                                        <span class="slider"></span>
+
+                                    </label>
+
+                                </div>
+
+
+                                <div class="setting-row">
+
+                                    <div class="setting-info">
+
+                                        <h3>
+                                            Lab Report Updates
+                                        </h3>
+
+                                        <p>
+                                            Get notified when new lab reports are available.
+                                        </p>
+
+                                    </div>
+
+                                    <label class="switch">
+
+                                        <input
+                                            type="checkbox"
+                                            id="labNotifications"
+                                            aria-label="Lab Report Updates"
+                                            title="Lab Report Updates"
+                                            checked>
+
+                                        <span class="slider"></span>
+
+                                    </label>
+
+                                </div>
+
+
+                                <div class="setting-row">
+
+                                    <div class="setting-info">
+
+                                        <h3>
+                                            Billing Notifications
+                                        </h3>
+
+                                        <p>
+                                            Receive updates about invoices and payments.
+                                        </p>
+
+                                    </div>
+
+                                    <label class="switch">
+
+                                        <input
+                                            type="checkbox"
+                                            id="billingNotifications"
+                                            aria-label="Billing Notifications"
+                                            title="Billing Notifications"
+                                            checked>
+
+                                        <span class="slider"></span>
+
+                                    </label>
+
+                                </div>
+
+
+                                <div class="setting-row">
+
+                                    <div class="setting-info">
+
+                                        <h3>
+                                            System Notifications
+                                        </h3>
+
+                                        <p>
+                                            Receive important system alerts.
+                                        </p>
+
+                                    </div>
+
+                                    <label class="switch">
+
+                                        <input
+                                            type="checkbox"
+                                            id="systemNotifications"
+                                            aria-label="System Notifications"
+                                            title="System Notifications"
+                                            checked>
+
+                                        <span class="slider"></span>
+
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- =================================================
+                         SECURITY
+                    ================================================== -->
+
+                    <section
+                        class="settings-section"
+                        id="security">
+
+
+                        <div class="settings-card">
+
+                            <div class="settings-card-header">
+
+                                <h2>
+                                    Security
+                                </h2>
+
+                                <p>
+                                    Manage your account security settings.
+                                </p>
+
+                            </div>
+
+
+                            <div class="settings-card-body">
+
+                                <div class="form-grid">
+
+
+                                    <div class="form-group full">
+
+                                        <label for="currentPassword">
+                                            Current Password
+                                        </label>
+
+                                        <input
+                                            type="password"
+                                            id="currentPassword"
+                                            class="form-control"
+                                            placeholder="Enter current password">
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="newPassword">
+                                            New Password
+                                        </label>
+
+                                        <input
+                                            type="password"
+                                            id="newPassword"
+                                            class="form-control"
+                                            placeholder="Enter new password">
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="confirmPassword">
+                                            Confirm Password
+                                        </label>
+
+                                        <input
+                                            type="password"
+                                            id="confirmPassword"
+                                            class="form-control"
+                                            placeholder="Confirm new password">
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-actions">
+
+                                    <button
+                                        class="btn btn-primary"
+                                        id="changePasswordBtn">
+
+                                        <i class="fa-solid fa-lock"></i>
+
+                                        Change Password
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="settings-card">
+
+                            <div class="settings-card-header">
+
+                                <h2>
+                                    Session
+                                </h2>
+
+                                <p>
+                                    Manage your current CareFlow AI session.
+                                </p>
+
+                            </div>
+
+
+                            <div class="settings-card-body">
+
+                                <div class="setting-row">
+
+                                    <div class="setting-info">
+
+                                        <h3>
+                                            Current Session
+                                        </h3>
+
+                                        <p>
+                                            You are currently logged in as Dr. Rachel Green.
+                                        </p>
+
+                                    </div>
+
+
+                                    <button
+                                        class="btn btn-danger"
+                                        id="securityLogoutBtn">
+
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+
+                                        Logout
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- =================================================
+                         SYSTEM
+                    ================================================== -->
+
+                    <section
+                        class="settings-section"
+                        id="system">
+
+
+                        <div class="settings-card">
+
+                            <div class="settings-card-header">
+
+                                <h2>
+                                    System Preferences
+                                </h2>
+
+                                <p>
+                                    Configure general CareFlow AI preferences.
+                                </p>
+
+                            </div>
+
+
+                            <div class="settings-card-body">
+
+                                <div class="form-grid">
+
+
+                                    <div class="form-group">
+
+                                        <label for="currency">
+                                            Currency
+                                        </label>
+
+                                        <select
+                                            id="currency"
+                                            class="form-control">
+
+                                            <option selected>
+                                                Indian Rupee (₹)
+                                            </option>
+
+                                            <option>
+                                                US Dollar ($)
+                                            </option>
+
+                                            <option>
+                                                Euro (€)
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="dateFormat">
+                                            Date Format
+                                        </label>
+
+                                        <select
+                                            id="dateFormat"
+                                            class="form-control">
+
+                                            <option selected>
+                                                DD/MM/YYYY
+                                            </option>
+
+                                            <option>
+                                                MM/DD/YYYY
+                                            </option>
+
+                                            <option>
+                                                YYYY-MM-DD
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="timeFormat">
+                                            Time Format
+                                        </label>
+
+                                        <select
+                                            id="timeFormat"
+                                            class="form-control">
+
+                                            <option selected>
+                                                12 Hour
+                                            </option>
+
+                                            <option>
+                                                24 Hour
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="language">
+                                            Default Language
+                                        </label>
+
+                                        <select
+                                            id="language"
+                                            class="form-control">
+
+                                            <option selected>
+                                                English
+                                            </option>
+
+                                            <option>
+                                                Hindi
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-actions">
+
+                                    <button
+                                        class="btn btn-primary"
+                                        id="saveSystemBtn">
+
+                                        <i class="fa-solid fa-check"></i>
+
+                                        Save Preferences
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- DATA MANAGEMENT -->
+
+                        <div class="settings-card">
+
+                            <div class="settings-card-header">
+
+                                <h2>
+                                    Data Management
+                                </h2>
+
+                                <p>
+                                    Manage locally stored CareFlow AI data.
+                                </p>
+
+                            </div>
+
+
+                            <div class="settings-card-body">
+
+                                <div class="setting-row">
+
+                                    <div class="setting-info">
+
+                                        <h3>
+                                            Clear Local Settings
+                                        </h3>
+
+                                        <p>
+                                            Reset saved preferences on this device.
+                                        </p>
+
+                                    </div>
+
+
+                                    <button
+                                        class="btn btn-danger"
+                                        id="clearSettingsBtn">
+
+                                        <i class="fa-solid fa-trash"></i>
+
+                                        Reset
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                    <!-- =================================================
+                         USERS & ROLES (admin only)
+                    ================================================== -->
+
+                    <section class="settings-section" id="users">
+
+                        <div class="settings-card">
+
+                            <div class="settings-card-header settings-card-header--split">
+                                <div>
+                                    <h2>Users &amp; Roles</h2>
+                                    <p>Add staff accounts and control what each role can see and do. Backend re-checks every request - this isn't just a UI toggle.</p>
+                                </div>
+                                <button class="btn btn-primary btn-sm settings-add-user" id="addUserBtn">
+                                    <i class="fa-solid fa-user-plus"></i> Add User
+                                </button>
+                            </div>
+
+                            <div class="settings-card-body">
+                                <p id="usersError" class="settings-error is-hidden"></p>
+
+                                <table class="data-table" id="usersTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            <th>Status</th>
+                                            <th class="settings-actions-column"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="usersTableBody">
+                                        <tr><td colspan="5" class="settings-table-message">Loading users\u2026</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h2>Role permissions</h2>
+                                <p>What each role can currently do, across every module. Defined in code (<code>app/permissions.py</code>) so it's easy to review and version-control - ask your developer to adjust it if a role needs more or less access.</p>
+                            </div>
+                            <div class="settings-card-body">
+                                <div id="roleMatrixContainer" class="settings-role-matrix">
+                                    <p class="settings-muted">Loading permission matrix\u2026</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<!-- ADD/EDIT USER MODAL -->
+<div class="modal-backdrop" id="userModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title" id="userModalTitle">Add User</h3>
+    <button class="modal-close" id="userModalClose" title="Close user dialog" aria-label="Close user dialog"><i class="fa-solid fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+    <p id="userModalError" class="settings-error is-hidden"></p>
+
+      <div class="form-group">
+        <label class="form-label">Full name</label>
+        <input type="text" class="form-input" id="userModalName" title="User full name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" id="userModalEmail" title="User email">
+      </div>
+      <div class="form-group" id="userModalPasswordGroup">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" id="userModalPassword" placeholder="At least 6 characters" autocomplete="new-password">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Role</label>
+        <select class="form-select" id="userModalRole" title="User role"></select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" id="userModalCancel">Cancel</button>
+      <button class="btn btn-primary" id="userModalSave"><i class="fa-solid fa-check"></i> Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE USER CONFIRM MODAL -->
+<div class="modal-backdrop" id="deleteUserModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title">Remove User</h3>
+    <button class="modal-close" id="deleteUserModalClose" title="Close remove user dialog" aria-label="Close remove user dialog"><i class="fa-solid fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <p>Remove <strong id="deleteUserName"></strong>'s access to CareFlow? This can't be undone - they'll need a new account to sign in again.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" id="deleteUserModalCancel">Cancel</button>
+      <button class="btn btn-danger" id="deleteUserModalConfirm"><i class="fa-solid fa-trash"></i> Remove User</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- =========================================================
+     SUCCESS MESSAGE
+========================================================= -->
+
+<div class="save-message" id="saveMessage">
+
+    <i class="fa-solid fa-circle-check"></i>
+
+    <span id="saveMessageText">
+        Settings saved successfully!
+    </span>
+
+</div>
+
+
+<script src="server-config.js"></script>
+<script src="storage.js"></script>
+<script src="api.js"></script>
+<script src="auth.js"></script>
+<script src="permissions.js"></script>
+<!-- app.js owns the shared sidebar/drawer/theme behaviour. settings.html
+     was the only page with a sidebar that never loaded it, so this page had
+     no Escape-to-close drawer, no nav tooltips and no shared toggle. -->
+<script src="app.js"></script>
+<script src="settings.js"></script>
+
+</body>
+
+</html>
